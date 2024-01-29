@@ -1,4 +1,8 @@
+//SPDX-license-identifier MIT
+
 pragma solidity ^0.6.6;
+
+import "@chainlink/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol";
 
 contract Lottery {
     address payable[] public players;
@@ -6,8 +10,9 @@ contract Lottery {
     AggregatorV3Interface internal ethUsdPriceFeed;
 
 
-    constructor() public {
+    constructor(address _priceFeedAddress) public {
          usdEntryFee = 50 * (10**18);
+         ethUsdPriceFeed = AggregatorV3Interface(_priceFeedAddress);
     }
     
     function enter() public{
