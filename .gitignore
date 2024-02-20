@@ -4,3 +4,9 @@ __pycache__
 .hypothesis/
 build/
 reports/
+.vscode/
+node_modules/
+package.json
+scripts/
+tests/
+yarn.lock
