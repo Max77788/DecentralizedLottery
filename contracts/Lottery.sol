@@ -159,16 +159,18 @@ contract Lottery is VRFConsumerBaseV2, ConfirmedOwner {
         players.push(payable(msg.sender));
     }
     function getEntranceFee() public view returns (uint256){
-        (, int price, , ,) = ethUsdPriceFeed.latestRoundData();
-        uint256 adjustedPrice = uint256(price) * 10**10;
+        //(, int price, , ,) = ethUsdPriceFeed.latestRoundData();
+        int price = 7777; //hardcoded for now
+        uint256 adjustedPrice = uint256(price) * 10**17;
+        // console.log("adjusted price is %s", adjustedPrice);
         // $50, $2000 / ETH
         //50/2000
         //50 *100000 / 2000
-        uint256 costToEnter = (usdEntryFee * 10 ** 18) / adjustedPrice;
+        uint256 costToEnter = (usdEntryFee * 10 ** 15) / adjustedPrice;
         return costToEnter;
     }
     function startLottery() public onlyOwner {
-        require(lottery_state == LOTTERY_STATE.OPEN, "Can't start a new lottery yet!");
+        require(lottery_state == LOTTERY_STATE.CLOSED, "The lottery is already started!");
         lottery_state = LOTTERY_STATE.OPEN; 
     }
     
